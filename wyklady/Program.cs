@@ -5,7 +5,7 @@ ConsoleHelper.SetCurrentFont("Consolas", 32);
 Console.SetWindowSize(50, 30);
 Console.Clear();
 
-Main.Zad_3();
+Main.Zad_4();
 
 
 public static class Main
@@ -128,6 +128,31 @@ public static class Main
             return NWD(a,b);
         }
 
+    }
+
+    public static void Zad_4()
+    {
+        // Licz sume cyfr rozwiniecia dziesietnego liczby naturalnej
+
+        Main.Say("podaj liczbe naturalna");
+        string str_input = Console.ReadLine();
+        int input = int.Parse(str_input);
+        int num_of_digits = str_input.Length;
+        int result;
+        Console.WriteLine($"num of digits : {num_of_digits}");
+
+        static int Eval(string str_input, int num_of_digits, int result) 
+        {
+            for (int i = 0; i < num_of_digits; i++)
+            {
+                result += str_input[i];
+                Console.WriteLine(result); // ??????
+                Console.WriteLine(str_input[i]);
+            }
+            return result;
+        }
+
+        Console.WriteLine($"suma cyfr: {Eval(str_input,num_of_digits,0)}");
     }
 
 
