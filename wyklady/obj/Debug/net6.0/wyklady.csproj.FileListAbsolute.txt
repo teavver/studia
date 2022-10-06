@@ -1,0 +1,15 @@
+C:\Dev 2\wyklady\bin\Debug\net6.0\wyklady.exe
+C:\Dev 2\wyklady\bin\Debug\net6.0\wyklady.deps.json
+C:\Dev 2\wyklady\bin\Debug\net6.0\wyklady.runtimeconfig.json
+C:\Dev 2\wyklady\bin\Debug\net6.0\wyklady.dll
+C:\Dev 2\wyklady\bin\Debug\net6.0\wyklady.pdb
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.csproj.AssemblyReference.cache
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.AssemblyInfoInputs.cache
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.AssemblyInfo.cs
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.csproj.CoreCompileInputs.cache
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.dll
+C:\Dev 2\wyklady\obj\Debug\net6.0\refint\wyklady.dll
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.pdb
+C:\Dev 2\wyklady\obj\Debug\net6.0\wyklady.genruntimeconfig.cache
+C:\Dev 2\wyklady\obj\Debug\net6.0\ref\wyklady.dll
