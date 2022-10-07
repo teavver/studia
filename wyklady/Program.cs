@@ -5,8 +5,7 @@ ConsoleHelper.SetCurrentFont("Consolas", 32);
 Console.SetWindowSize(50, 30);
 Console.Clear();
 
-Main.Zad_6();
-Console.ReadKey();
+Main.Zad_4();
 
 
 public static class Main
@@ -137,52 +136,26 @@ public static class Main
 
         Main.Say("podaj liczbe naturalna");
         string str_input = Console.ReadLine();
-        int result = str_input.Sum(c => c - '0');
-        Console.WriteLine(result);
-    }
+        int input = int.Parse(str_input);
+        int num_of_digits = str_input.Length;
+        int result;
+        Console.WriteLine($"num of digits : {num_of_digits}");
 
-    // ---------------------------------------------------------------------------- //
-
-    public static void Zad_5()
-    {
-        // Badanie czy liczba jest licz. pierwsza. Minimalizacja operacji dzielenia.
-        // Lepiej -> Sortowanie skonczonego zbioru liczb dodatnich calk. np [2;n]
-        // Sito Eratostenesa
-
-
-
-    }
-
-    // ---------------------------------------------------------------------------- //
-
-    public static void Times(this int count, Action action)
-    {
-        for (int i = 0; i < count; i++)
+        static int Eval(string str_input, int num_of_digits, int result) 
         {
-            action();
-        }
-    }
-    public static void Zad_6()
-    {
-        Main.Say("Podaj liczbe: ");
-        string input = Console.ReadLine();
-        int height = int.Parse(input);
-        char space = (char)32;
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine();
-
-         for(int i = 0; i < height; i++)
-        {
-            if(i == height -1)
+            for (int i = 0; i < num_of_digits; i++)
             {
-                Console.WriteLine("|");
-                Console.WriteLine("|");
+                result += str_input[i];
+                Console.WriteLine(result); // ??????
+                Console.WriteLine(str_input[i]);
             }
+            return result;
         }
+
+        Console.WriteLine($"suma cyfr: {Eval(str_input,num_of_digits,0)}");
     }
 
-    // ---------------------------------------------------------------------------- //
+
 
 }
 
