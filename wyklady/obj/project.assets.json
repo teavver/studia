@@ -8,19 +8,24 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\jerzy\\.nuget\\packages\\": {}
+    "C:\\Users\\teaver\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jerzy\\Dev\\c#\\wyklady\\wyklady.csproj",
+      "projectUniqueName": "C:\\Users\\teaver\\Source\\Repos\\studia\\wyklady\\wyklady.csproj",
       "projectName": "wyklady",
-      "projectPath": "C:\\Users\\jerzy\\Dev\\c#\\wyklady\\wyklady.csproj",
-      "packagesPath": "C:\\Users\\jerzy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jerzy\\Dev\\c#\\wyklady\\obj\\",
+      "projectPath": "C:\\Users\\teaver\\Source\\Repos\\studia\\wyklady\\wyklady.csproj",
+      "packagesPath": "C:\\Users\\teaver\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\teaver\\Source\\Repos\\studia\\wyklady\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\jerzy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\teaver\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -51,8 +56,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -61,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
