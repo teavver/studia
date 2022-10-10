@@ -1,11 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 /// fun do tesotwania
 ConsoleHelper.SetCurrentFont("Consolas", 32);
 Console.SetWindowSize(50, 30);
 Console.Clear();
 
-Main.Zad_4();
+Main.PP_Laborki();
 
 
 public static class Main
@@ -136,27 +137,162 @@ public static class Main
 
         Main.Say("podaj liczbe naturalna");
         string str_input = Console.ReadLine();
-        int input = int.Parse(str_input);
-        int num_of_digits = str_input.Length;
-        int result;
-        Console.WriteLine($"num of digits : {num_of_digits}");
-
-        static int Eval(string str_input, int num_of_digits, int result) 
-        {
-            for (int i = 0; i < num_of_digits; i++)
-            {
-                result += str_input[i];
-                Console.WriteLine(result); // ??????
-                Console.WriteLine(str_input[i]);
-            }
-            return result;
-        }
-
-        Console.WriteLine($"suma cyfr: {Eval(str_input,num_of_digits,0)}");
+        int result = str_input.Sum(c => c - '0');
+        Main.Say($"suma cyfr: {result}");
     }
 
+    // ---------------------------------------------------------------------------- //
+
+    public static void Zad_5()
+    {
+
+    }
+
+    // ---------------------------------------------------------------------------- //
 
 
+    public static void PP_Laborki()
+    {
+        // 10.10.2022
+        
+        // switch / case
+
+
+/*
+        switch (input)
+        {
+            case 1:
+                Console.WriteLine("case1");
+                break;
+        }*/
+
+        // ReadKey
+        // Console.ReadKey().KeyChar;
+
+        // for loop
+        // nieskonczony loop,
+        // Scope block dla i
+
+        // scoped case
+
+
+        /*for(int j = 0; j < 10; j++)
+        {
+            // WriteLine
+        }
+
+        // global case
+        int i = 0;
+        for (; i < 3; i++)
+        {
+            // WriteLine
+        }
+        Console.WriteLine(i);*/
+
+        // While loop / Do while loop
+        // While -> sprawdza warunek przed wykonaniem
+        // Do while -> sprawdza po wykonaniu
+
+        // TryParse -> if(int tryparse(c.RL), out foo == true && bar)
+        // -> true -> while loop / switch case, bledy
+
+        static void Kalkulator()
+        {
+            Main.Say("Wybierz dzialanie (wpisz cyfre)");
+            Console.WriteLine("0) Dodawanie");
+            Console.WriteLine("1) Odejmowanie");
+            Console.WriteLine("2) Mnozenie");
+            Console.WriteLine("3) Dzielenie");
+
+            switch(Console.ReadLine())
+            {
+                case "0":
+                {
+                        Dodawanie();
+                        break;
+                }
+                case "1":
+                    {
+                        Odejmowanie();
+                        break;
+                    }
+                case "2":
+                    {
+                        Mnozenie();
+                        break;
+                    }
+                case "3":
+                    {
+                        Dzielenie();
+                        break;
+                    }
+                default:
+                    {
+                        Main.Say("wybrales niepoprawna cyfre, sprobuj od nowa");
+                        Kalkulator();
+                        break;
+                    }
+            }
+        }
+
+        static void Dodawanie()
+        {
+            Main.Say("podaj pierwsza liczbe");
+             string? str_a = Console.ReadLine();
+            Main.Say("podaj druga liczbe");
+            string? str_b = Console.ReadLine();
+            int a = int.Parse(str_a);
+            int b = int.Parse(str_b);
+
+            Main.Say($"wynik: {a + b}");
+            Console.ReadKey();
+        }
+
+        static void Odejmowanie()
+        {
+            Main.Say("podaj odjemną");
+             string? str_a = Console.ReadLine();
+            Main.Say("podaj odjemnik");
+            string? str_b = Console.ReadLine();
+            int a = int.Parse(str_a);
+            int b = int.Parse(str_b);
+
+            Main.Say($"wynik: {a - b}");
+            Console.ReadKey();
+        }
+
+        static void Mnozenie()
+        {
+            Main.Say("podaj czynnik mnozenia");
+             string? str_a = Console.ReadLine();
+            Main.Say("podaj mnoznik");
+            string? str_b = Console.ReadLine();
+            int a = int.Parse(str_a);
+            int b = int.Parse(str_b);
+
+            Main.Say($"wynik: {a * b}");
+            //
+            Console.ReadKey();
+        }
+
+        static void Dzielenie()
+        {
+            Main.Say("podaj pierwsza liczbe");
+             string? str_a = Console.ReadLine();
+            Main.Say("podaj druga liczbe");
+            string? str_b = Console.ReadLine();
+            int a = int.Parse(str_a);
+            int b = int.Parse(str_b);
+            if(b == 0)
+            {
+                Main.Say("nie mozna dzielic przez 0, zacznij od nowa.");
+                Dzielenie();
+            }
+            Main.Say($"wynik: {a / b}");
+            Console.ReadKey();
+        }
+        Kalkulator();
+    }
 }
 
 public static class ConsoleHelper
