@@ -33,30 +33,45 @@ namespace ConsoleApp
             string? selected_gif = Console.ReadLine();
             if(selected_gif != null){
                 if(File.Exists(selected_gif)){
-                    Log(0, $"[ OK ] {selected_gif}");
-                    // Test this on windows (!)
-                    // Image img_gif = Image.FromFile(selected_gif);
-                    // get_gif_frames(img_gif);
-
-                    // MY WAY
+                    Log(0, $"[ OK ] Selected file: {selected_gif}");
+                    // Get gif information (size in byes, width, height, frames?)
                     FileInfo file = new FileInfo(selected_gif);
                     var sizeInBytes = file.Length;
-                    Log(0, sizeInBytes.ToString());
-                    // below only win
-
                     Bitmap img = new Bitmap(selected_gif);
                     var imageHeight = img.Height;
                     var imageWidth = img.Width;
-                    Log(0, imageHeight.ToString());
-                    Log(0, imageWidth.ToString());
+                    // Useful log
+                    Log(0, $"size in bytes: {sizeInBytes.ToString()}");
+                    Log(0, $"img height: {imageHeight.ToString()}");
+                    Log(0, $"img width: {imageWidth.ToString()}");
+                    // Convert gif frame to byte array
+                    byte[] img_byte_array = img_to_byte_arr(img);
+                    byte_arr_to_file(img_byte_array, "gif_split");
+                    Log(0, "[ OK ]");
                 }
                 else {
                     // Restart if filename doesn't exist or user misspelled
-                    Log(1, "File not found, try again");
+                    Log(1, "[ WARN ] File not found, try again");
                     select_gif_file();
                 }
             }
-            else Console.WriteLine("Filename input is null."); return;
+            else Log(2, "[ ERR ] Filename input is null."); return;
+        }
+
+        public static byte[] img_to_byte_arr(Image img)
+        {
+            using (var stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+        
+        public static void byte_arr_to_file(byte[] data, string filePath)
+        {
+            using var stream = File.Create(filePath);
+            // using var stream = File.Create(Directory.GetCurrentDirectory());
+            stream.Write(data, 0, data.Length);
         }
 
         public static void split_gif_into_frames(){
@@ -66,8 +81,8 @@ namespace ConsoleApp
         // public static IEnumerable<Bitmap> get_gif_frames(Image gif){
         //     var dimension = new FrameDimension(gif.FrameDimensionsList[0]);
         //     var frameCount = gif.GetFrameCount(dimension);
-        //     Log(0, dimension.ToString());
-        //     Log(0, frameCount.ToString());
+        //     Log(0, $" dimensions: {dimension.ToString()}");
+        //     Log(0, $" frame_count: {frameCount.ToString()}");
         //     for (var index = 0; index < frameCount; index++)
         //     {
         //         //find the frame
