@@ -24,7 +24,6 @@ namespace ConsoleApp
         }
 
         private static void gif_CLI(){
-            // Ask user to select a file
             select_gif_file();
         }
 
@@ -35,73 +34,36 @@ namespace ConsoleApp
                 if(File.Exists(selected_gif)){
                     Log(0, $"[ OK ] Selected file: {selected_gif}");
                     // Get gif information (size in byes, width, height, frames?)
+                    
+                    // get file info
                     FileInfo file = new FileInfo(selected_gif);
+                    Image gif_image = Image.FromFile(selected_gif);
                     Bitmap img = new Bitmap(selected_gif);
+                    
                     var sizeInBytes = file.Length;
                     var imageHeight = img.Height;
                     var imageWidth = img.Width;
-
-                    Image gif_image = Image.FromFile(selected_gif);
-                    FrameDimension dimension = new FrameDimension(gif_image.FrameDimensionsList[0]);
-                    // Number of frames
-                    int frameCount = gif_image.GetFrameCount(dimension);
-                    Log(0, $"frame_count: {frameCount}");
-                    
-                    // Return an Image at a certain index
-                    // gifImg.SelectActiveFrame(dimension, 0);
-
-
-                    // Useful log
+                    int frameCount = gif_image.GetFrameCount(FrameDimension.Time);
+                    // Log for testing
                     Log(0, $"size in bytes: {sizeInBytes.ToString()}");
                     Log(0, $"img height: {imageHeight.ToString()}");
                     Log(0, $"img width: {imageWidth.ToString()}");
-                    // Convert gif frame to byte array
-                    byte[] img_byte_array = img_to_byte_arr(img);
-                    byte_arr_to_file(img_byte_array, "gif_split");
                     Log(0, "[ OK ]");
+
+                    // Save single file (for now)
+                    gif_image.Save("frame.png", ImageFormat.Png);
+                    Log(0, "[ OK ] Saved frames");
                 }
                 else {
-                    // Restart if filename doesn't exist or user misspelled
                     Log(1, "[ WARN ] File not found, try again");
                     select_gif_file();
                 }
             }
             else Log(2, "[ ERR ] Filename input is null."); return;
         }
-
-        public static byte[] img_to_byte_arr(Image img)
-        {
-            using (var stream = new MemoryStream())
-            {
-                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
+        public static void generate_frames(int frames){
+            // save all frames as png
         }
-        
-        public static void byte_arr_to_file(byte[] data, string filePath)
-        {
-            using var stream = File.Create(filePath);
-            // using var stream = File.Create(Directory.GetCurrentDirectory());
-            stream.Write(data, 0, data.Length);
-        }
-
-        public static void split_gif_into_frames(){
-
-        }
-
-        // public static IEnumerable<Bitmap> get_gif_frames(Image gif){
-        //     var dimension = new FrameDimension(gif.FrameDimensionsList[0]);
-        //     var frameCount = gif.GetFrameCount(dimension);
-        //     Log(0, $" dimensions: {dimension.ToString()}");
-        //     Log(0, $" frame_count: {frameCount.ToString()}");
-        //     for (var index = 0; index < frameCount; index++)
-        //     {
-        //         //find the frame
-        //         gif.SelectActiveFrame(dimension, index);
-        //         //return a copy of it
-        //         yield return (Bitmap) gif.Clone();
-        //     }
-        // }
         public static void Log(int log_type, string input) {
             // 0 -- default info log (cyan)
             // 1 -- warn log        (yellow)
