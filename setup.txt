@@ -1,0 +1,13 @@
+cd Dev
+dotnet new console -o project-name
+cd project-name
+code .
+
+compile and run
+
+## (inside vscode term)
+-dotnet build
+
+## (in bash) 
+-cd into project-name
+- dotnet run
