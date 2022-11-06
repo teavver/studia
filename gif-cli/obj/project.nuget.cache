@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "NCvsO1P9qkidUspmo+J5qEBVyLjVnQSoDN87nswYFmyokrm4QkgtpVf+8qccdh9WEw0bgUQFm9dzRoQuXQL0yw==",
+  "dgSpecHash": "hhLfdZgA7hoG8RmFADYswc8kYwHqnPS7IIf20Fl1Q7UzTSp2tjFTbZP9Tk1SQwpCfWPtiqDfQkvhfx+CZiW5xQ==",
   "success": true,
   "projectFilePath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
   "expectedPackageFiles": [
+    "/home/teaver/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "/home/teaver/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
     "/home/teaver/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
   ],
   "logs": []

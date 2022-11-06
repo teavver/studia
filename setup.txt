@@ -11,3 +11,6 @@ compile and run
 ## (in bash) 
 -cd into project-name
 - dotnet run
+
+## check dotnet ver
+dotnet --list-sdks
