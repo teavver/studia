@@ -36,10 +36,21 @@ namespace ConsoleApp
                     Log(0, $"[ OK ] Selected file: {selected_gif}");
                     // Get gif information (size in byes, width, height, frames?)
                     FileInfo file = new FileInfo(selected_gif);
-                    var sizeInBytes = file.Length;
                     Bitmap img = new Bitmap(selected_gif);
+                    var sizeInBytes = file.Length;
                     var imageHeight = img.Height;
                     var imageWidth = img.Width;
+
+                    Image gif_image = Image.FromFile(selected_gif);
+                    FrameDimension dimension = new FrameDimension(gif_image.FrameDimensionsList[0]);
+                    // Number of frames
+                    int frameCount = gif_image.GetFrameCount(dimension);
+                    Log(0, $"frame_count: {frameCount}");
+                    
+                    // Return an Image at a certain index
+                    // gifImg.SelectActiveFrame(dimension, 0);
+
+
                     // Useful log
                     Log(0, $"size in bytes: {sizeInBytes.ToString()}");
                     Log(0, $"img height: {imageHeight.ToString()}");
