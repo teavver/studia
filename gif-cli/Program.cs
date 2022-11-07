@@ -41,33 +41,30 @@ namespace ConsoleApp
             if(selected_gif != null){
                 if(File.Exists(selected_gif)){
                     log(0, $"[ OK ] Selected file: {selected_gif}");
-                    // Get gif information (size in byes, width, height, frame count)
                     
+                    // Get gif information (size in byes, width, height, frame count)
                     FileInfo file = new FileInfo(selected_gif);
-                    Image gif_image = Image.FromFile(selected_gif);
                     Bitmap img_bmp = new Bitmap(selected_gif);
+                    Image gif_image = Image.FromFile(selected_gif);
                     
                     var size_in_bytes = file.Length;
                     var image_height = img_bmp.Height;
                     var image_width = img_bmp.Width;
                     int frame_count = gif_image.GetFrameCount(FrameDimension.Time);
+                    // Getting framerate
+                    PropertyItem frame_delay = gif_image.GetPropertyItem(0x5100);
+                    int framerate = (frame_delay.Value [0] + frame_delay.Value[1] * 256) * 10;
                     // Log for testing
+                    Console.WriteLine(framerate);
                     log(0, $"size in bytes: {size_in_bytes.ToString()}");
                     log(0, $"img height: {image_height.ToString()}");
                     log(0, $"img width: {image_width.ToString()}");
                     log(0, "[ OK ]");
                     Console.Clear();
-                    // Prototype
-                    Bitmap bmp_src = new Bitmap(selected_gif, true);    
-                    ConsoleWriteImage(bmp_src);
-                    // ConsoleWriteImage(new Bitmap(selected_gif));
-                    
-                    // Split gif into frames
-                    // generate_frames(gif_image, frame_count);
-                    // log(0, "[ OK ] Saved frames");
 
-                    // Convert frame to ASCII
-                    // frame_to_ASCII(gif_image, 64);
+                    // Testing
+                    generate_frames(gif_image, frame_count, 30);
+                    log(0, "[ OK ] Saved frames");
                 }
                 else {
                     log(1, "[ WARN ] File not found, try again");
@@ -77,41 +74,21 @@ namespace ConsoleApp
             }
             else log(2, "[ ERR ] Filename input is null."); return;
         }
-        public static void generate_frames(Image gif_img, int frame_count){
+        public static void generate_frames(Image gif_img, int frame_count, int frame_rate){
             System.IO.Directory.CreateDirectory("frames");
             log(0, $"[ OK ] Creating directory...");
             for (int i = 0; i < frame_count; i++)
             {
+                // Set active frame
                 gif_img.SelectActiveFrame(FrameDimension.Time, i);
-                gif_img.Save($"frames/frame{i.ToString()}.png", ImageFormat.Png);
+                // Draw frame
+                ConsoleWriteImage(new Bitmap(gif_img));
+                // Wait until rendered
+                Thread.Sleep((2000 / frame_rate));
+                // Cleanup
+                Console.Clear();
             }
         }
-
-        // public static int ToConsoleColor(System.Drawing.Color c)
-        // {
-        //     int index = (c.R > 128 | c.G > 128 | c.B > 128) ? 8 : 0;
-        //     index |= (c.R > 64) ? 4 : 0;
-        //     index |= (c.G > 64) ? 2 : 0;
-        //     index |= (c.B > 64) ? 1 : 0;
-        //     return index;
-        // }
-
-        // public static void ConsoleWriteImage(Bitmap src)
-        // {
-        //     int min = 39;
-        //     decimal pct = Math.Min(decimal.Divide(min, src.Width), decimal.Divide(min, src.Height));
-        //     Size res = new Size((int)(src.Width * pct), (int)(src.Height * pct));
-        //     Bitmap bmpMin = new Bitmap(src, res);
-        //     for (int i = 0; i < res.Height; i++)
-        //     {
-        //         for (int j = 0; j < res.Width; j++)
-        //         {
-        //             Console.ForegroundColor = (ConsoleColor)ToConsoleColor(bmpMin.GetPixel(j, i));
-        //             Console.Write("██");
-        //         }
-        //         System.Console.WriteLine();
-        //     }
-        // }
 
         static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
 
@@ -168,13 +145,6 @@ namespace ConsoleApp
             Console.ResetColor();
         }
 
-        public static void frame_to_ASCII(Image img, int quality){
-            // https://codingvision.net/c-ascii-art-tutorial
-
-            // https://stackoverflow.com/questions/33538527/display-a-image-in-a-console-application
-
-            Bitmap bmp = new Bitmap(img, quality, quality);
-        }
         public static void log(int log_type, string input) {
             // 0 -- default info log (cyan)
             // 1 -- warn log        (yellow)

@@ -123,19 +123,19 @@
     ]
   },
   "packageFolders": {
-    "/home/teaver/.nuget/packages/": {}
+    "/home/kafka/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
+      "projectUniqueName": "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj",
       "projectName": "gif-cli",
-      "projectPath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
-      "packagesPath": "/home/teaver/.nuget/packages/",
-      "outputPath": "/home/teaver/Dev/studia/gif-cli/obj/",
+      "projectPath": "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj",
+      "packagesPath": "/home/kafka/.nuget/packages/",
+      "outputPath": "/home/kafka/Dev/studia/gif-cli/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/teaver/.nuget/NuGet/NuGet.Config"
+        "/home/kafka/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
