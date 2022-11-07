@@ -134,13 +134,14 @@ namespace ConsoleApp
         public static void render_frames(Image gif_img, int frame_count, int args){
             Console.CursorVisible = false;
             if(args == 1){
-                // Very, very messy. High CPU usage
+                // Very, very messy. High CPU usage on linux
                 // Infinite loop
                 for (int i = 0; i < frame_count; i++)
                 {
                     if( i == frame_count - 1){
                         i = 0;
-                        Console.Clear();
+                        Console.CursorLeft = 0;
+                        Console.CursorTop = 0;
                     }
                     gif_img.SelectActiveFrame(FrameDimension.Time, i);
                     Console.CursorLeft = 0;
@@ -149,18 +150,20 @@ namespace ConsoleApp
                     ConsoleWriteImage(frame_bmp);
                 }
             }
-            for (int i = 0; i < frame_count; i++)
-            {
-                gif_img.SelectActiveFrame(FrameDimension.Time, i);
-                Console.CursorLeft = 0;
-                Console.CursorTop = 0;
-                Bitmap frame_bmp = new Bitmap(gif_img);
-                ConsoleWriteImage(frame_bmp);
+            if(args == 0){
+                for (int i = 0; i < frame_count; i++)
+                    {
+                        gif_img.SelectActiveFrame(FrameDimension.Time, i);
+                        Console.CursorLeft = 0;
+                        Console.CursorTop = 0;
+                        Bitmap frame_bmp = new Bitmap(gif_img);
+                        ConsoleWriteImage(frame_bmp);
+                    }
+                // Cleanup
+                Console.Clear();
+                Console.CursorVisible = true;
+                log(0, "[ OK ] Done");
             }
-            // Cleanup
-            Console.Clear();
-            Console.CursorVisible = true;
-            log(0, "[ OK ] Done");
         }
 
         // Drawing functions
