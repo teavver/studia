@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SBCAG6ESZjKUPgNP95vreiec+qsLIZigk4OCjls63IX740eqSwfFveEkhjZLLoKvhaa1m5mQ3BmvGQdjR53/1w==",
+  "dgSpecHash": "hhLfdZgA7hoG8RmFADYswc8kYwHqnPS7IIf20Fl1Q7UzTSp2tjFTbZP9Tk1SQwpCfWPtiqDfQkvhfx+CZiW5xQ==",
   "success": true,
-  "projectFilePath": "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj",
+  "projectFilePath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
   "expectedPackageFiles": [
-    "/home/kafka/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "/home/kafka/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
-    "/home/kafka/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
+    "/home/teaver/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "/home/teaver/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
+    "/home/teaver/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
   ],
   "logs": []
 }

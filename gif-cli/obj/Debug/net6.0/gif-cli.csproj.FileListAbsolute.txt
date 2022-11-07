@@ -5,7 +5,6 @@
 /home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.csproj.CoreCompileInputs.cache
 /home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli
 /home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.deps.json
-/home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.runtimeconfig.json
 /home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.dll
 /home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/ref/gif-cli.dll
 /home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.pdb
@@ -18,7 +17,6 @@
 /home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.dll
 /home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/ref/gif-cli.dll
 /home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.pdb
-/home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.genruntimeconfig.cache
 /home/kafka/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli
 /home/kafka/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.deps.json
 /home/kafka/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.runtimeconfig.json
@@ -40,3 +38,5 @@
 /home/kafka/Dev/studia/gif-cli/obj/Debug/net6.0/ref/gif-cli.dll
 /home/kafka/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.pdb
 /home/kafka/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.genruntimeconfig.cache
+/home/teaver/Dev/studia/gif-cli/bin/Debug/net6.0/gif-cli.runtimeconfig.json
+/home/teaver/Dev/studia/gif-cli/obj/Debug/net6.0/gif-cli.genruntimeconfig.cache
