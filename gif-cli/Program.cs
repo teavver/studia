@@ -21,9 +21,8 @@ namespace ConsoleApp
             
             if(clear) Console.Clear();
             // Get raw user input
-            log(0, "Paste your GIF file in this directory\nand input its name (without the extension)\nExample: \"drake\" for \"drake.gif\"\n. Type \"help\" for available commands\nFile name:");
+            log(0, "Paste your GIF file in this directory and input its name\nExample: \"drake.gif\"\nType \"help\" for available commands\nFile name:");
             string? user_input = Console.ReadLine();
-            Console.WriteLine(user_input);
             
             // Check if user asked for help
             if(user_input == "help"){
@@ -135,7 +134,7 @@ namespace ConsoleApp
                     Console.CursorTop = 0;
                     Bitmap frame_bmp = new Bitmap(gif_img);
                     ConsoleWriteImage(frame_bmp);
-                    Thread.Sleep(500);
+                    // Thread.Sleep(500);
                 }
             // Cleanup
             Console.Clear();
