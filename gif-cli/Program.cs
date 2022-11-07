@@ -30,10 +30,17 @@ namespace ConsoleApp
 
         private static void select_gif_file(bool clear) {
             if(clear) Console.Clear();
-            log(0, "Paste your GIF file in this directory and input it's name.\nType -help for help commands\nFile name:");
-            string? selected_gif = Console.ReadLine();
+            // display_help();
+            log(0, "Paste your GIF file in this directory and input its name.\nType \"help\" for available commands\nFile name:");
+            string? user_input = Console.ReadLine();
+            var first_space_user_input = user_input.IndexOf(" "); // i.e "drake.gif -l"
+            string selected_gif = user_input.Substring(0, first_space_user_input); // i.e "drake.gif"
+            string?  opt_args = user_input.Substring(first_space_user_input + 1); // i.e "-l"
+            // Console.WriteLine($"entire string (user input) : {user_input}");
+            // Console.WriteLine($"before space (selected gif) : {selected_gif}");
+            // Console.WriteLine($"opt args : {opt_args}");
             // Check if file exists in current dir
-            if(selected_gif == "-help"){
+            if(selected_gif == "help"){
                 display_help();
                 select_gif_file(false);
             }
@@ -41,7 +48,10 @@ namespace ConsoleApp
                 log(3, selected_gif);
                 if(File.Exists(selected_gif)){
                     log(0, $"[ OK ] Selected file: {selected_gif}");
-                    // ask_for_opt_args();
+
+                    // Check for optional arguments after the file
+                    check_for_opt_args(opt_args);
+
                     // Get gif information (size in byes, width, height, frame count)
                     FileInfo file = new FileInfo(selected_gif);
                     Bitmap img_bmp = new Bitmap(selected_gif);
@@ -55,55 +65,66 @@ namespace ConsoleApp
                     PropertyItem? frame_delay = gif_image.GetPropertyItem(0x5100);
                     int framerate = (frame_delay.Value [0] + frame_delay.Value[1] * 256) * 10;
                     // Log for testing
-                    Console.WriteLine(framerate);
+                    log(0, $"gif frame delay: {framerate.ToString()}");
                     log(0, $"size in bytes: {size_in_bytes.ToString()}");
-                    log(0, $"img height: {image_height.ToString()}");
-                    log(0, $"img width: {image_width.ToString()}");
+                    log(0, $"image size: {image_width.ToString()} x {image_height.ToString()} px");
                     log(0, "[ OK ]");
-                    Console.Clear();
-
+                    // Thread.Sleep(750);
+                    // Console.Clear();
                     // Testing
-                    render_frames(gif_image, frame_count, framerate);
-                    log(0, "[ OK ] Saved frames");
+                    // render_frames(gif_image, frame_count, framerate);
+                    // log(0, "[ OK ] Saved frames");
                 }
                 else {
                     log(1, "[ WARN ] File not found, try again");
                     select_gif_file(false);
-                    return;
                 }
             }
             else log(2, "[ ERR ] Filename input is null."); return;
         }
-        public static void render_frames(Image gif_img, int frame_count, int frame_rate){
-            System.IO.Directory.CreateDirectory("frames");
-            log(0, $"[ OK ] Creating directory...");
-            Console.CursorVisible = false;
-            for (int i = 0; i < frame_count; i++)
-            {
-                // Set active frame
-                gif_img.SelectActiveFrame(FrameDimension.Time, i);
-                // Draw frame
-                Console.CursorLeft = 0;
-                Console.CursorTop = 0;
-                ConsoleWriteImage(new Bitmap(gif_img));
-                // Wait until rendered
-                Thread.Sleep((100 / frame_rate));
-                // Cleanup
-                // Console.Clear();
-            }
-            Console.Clear();
-        }
+        // public static void render_frames(Image gif_img, int frame_count, int frame_rate){
+        //     System.IO.Directory.CreateDirectory("frames");
+        //     log(0, $"[ OK ] Creating directory...");
+        //     Console.CursorVisible = false;
+        //         for (int i = 0; i < frame_count; i++)
+        //         {
+        //             gif_img.SelectActiveFrame(FrameDimension.Time, i);
+        //             Console.CursorLeft = 0;
+        //             Console.CursorTop = 0;
+        //             Bitmap frame_bmp = new Bitmap(gif_img);
+        //             // Draw current frame in cli 
+        //             ConsoleWriteImage(frame_bmp);
+        //             // .Save("test", ImageFormat.Png);
+        //         }
+        //     Console.Clear();
+        //     log(0, "[ OK ] Done");
+        // }
         public static void display_help(){
-            log(3, "[ HELP ] Optional args");
+            log(3, "[ HELP ] Optional arguments available: ");
             log(3, "[ -ls ] Display all selectable .gif files in current directory");
-            log(3, "[ -l ] Loop output gif");
-            log(3, "[ -s ] Save output gif when finished");
+            log(3, "[ file.gif -l ] Loop output gif");
+            log(3, "[ file.gif -s ] Save output gif when finished");
         }
 
-        public static void ask_for_opt_args(){
-            string? opts = Console.ReadLine();
+        public static void check_for_opt_args(string? opts){
+            if(opts == null) log(0, "No opt args, moving on...");
+            if(opts != null){
+                string[] opts_arr = opts.Split(" ");
+                foreach (var arg in opts_arr)
+                {
+                    if(arg != "-l" && arg != "-s"){ log(2, "[ ERR ] Invalid opt args"); }
+                    if (arg == "-l"){ log(3, "[ OPT ARG ] LOOP OUTPUT GIF"); }
+                    if (arg == "-s"){ log(3, "[ OPT ARG ] SAVE OUTPUT WHEN FINISHED"); }
+                }
+            }
         }
 
+        public static void save_new_frame(){
+
+        }
+
+        // Drawing functions
+        // Credit: https://stackoverflow.com/questions/33538527/display-a-image-in-a-console-application
         static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
 
         public static void ConsoleWritePixel(Color cValue)
@@ -139,8 +160,6 @@ namespace ConsoleApp
             Console.BackgroundColor = (ConsoleColor)bestHit[1];
             Console.Write(rList[bestHit[2] - 1]);
         }
-
-
         public static void ConsoleWriteImage(Bitmap source)
         {
             int sMax = 39;
@@ -159,6 +178,7 @@ namespace ConsoleApp
             Console.ResetColor();
         }
 
+        // Better readability
         public static void log(int log_type, string input) {
             // 0 -- default info log (cyan)
             // 1 -- warn log        (yellow)
@@ -177,5 +197,4 @@ namespace ConsoleApp
             return;
         }
     }
-
 }
