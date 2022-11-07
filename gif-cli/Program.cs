@@ -24,7 +24,7 @@ namespace ConsoleApp
             log(0, "Paste your GIF file in this directory and input its name\nExample: \"drake.gif\"\nType \"help\" for available commands\nFile name:");
             string? user_input = Console.ReadLine();
             
-            // Ignore 'clear' command 
+            // Ignore 'clear' (bash) or 'cls' (cmd) input 
             if(user_input == "clear" || user_input == "cls"){
                 Console.Clear();
                 select_gif_file(false);
@@ -44,6 +44,7 @@ namespace ConsoleApp
                 select_gif_file(false);
                 return;
             }
+
             // Check if user input is file + args or just file.gif and continue
             if(!user_input.Any(x => Char.IsWhiteSpace(x))){
                 eval_gif(user_input); // user_input === selected_gif here
