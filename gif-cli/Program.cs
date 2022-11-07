@@ -18,7 +18,7 @@ namespace ConsoleApp
         }
 
         private static void select_gif_file(bool clear) {
-            
+            Console.CursorVisible = true;
             if(clear) Console.Clear();
             // Get raw user input
             log(0, "Paste your GIF file in this directory and input its name\nExample: \"drake.gif\"\nType \"help\" for available commands\nFile name:");
@@ -38,19 +38,23 @@ namespace ConsoleApp
                 return;
             }
             // Check if user input is file + args or just file.gif and continue
+            if(!user_input.Any(x => Char.IsWhiteSpace(x))){
+                eval_gif(user_input); // user_input === selected_gif here
+            }
             if(user_input.Any(x => Char.IsWhiteSpace(x))){
                 int first_space_user_input = user_input.IndexOf(" "); // i.e "drake.gif -l"
                 string?  opt_args = user_input.Substring(first_space_user_input + 1); // i.e "-l"
+                int args = check_for_opt_args(opt_args);
                 string? selected_gif = user_input.Substring(0, first_space_user_input); // i.e "drake.gif"
                 log(0, $"[ OK ] opt args: {opt_args}");
-                eval_gif(selected_gif);
+                log(0, $"[ OK ] opt args: {args}");
+                eval_gif(selected_gif, args);
             }
-            eval_gif(user_input); // user_input === selected_gif here
         }
 
-        public static void eval_gif(string selected_gif){
+        public static void eval_gif(string selected_gif, int args = 0){
             if(!File.Exists(selected_gif)){
-                Console.Clear(); log(2, "[ ERR ] Can't find the file. try again");
+                Console.Clear(); log(2, $"[ ERR ] Can't find file \"{selected_gif}\". try again");
                 select_gif_file(false);
                 return;
                 }
@@ -73,11 +77,12 @@ namespace ConsoleApp
                 log(0, $"size in bytes: {size_in_bytes.ToString()}");
                 log(0, $"image size: {image_width.ToString()} x {image_height.ToString()} px");
                 log(0, "[ OK ]");
-                Thread.Sleep(500);
+                Thread.Sleep(250);
                 Console.Clear();
-                
-                render_frames(gif_image, frame_count, framerate);
-                // log(0, "[ OK ]");
+
+                // Check for opt args before rendering
+                if(args == 1){ render_frames(gif_image, frame_count, args); } // render looped
+                else { render_frames(gif_image, frame_count, 0); } //render normal
             }
         }
 
@@ -109,33 +114,49 @@ namespace ConsoleApp
             Console.WriteLine();
         }
 
-        public static void check_for_opt_args(string? opts){
+        public static int check_for_opt_args(string? opts){
 
-            if(opts == null) log(0, "No opt args, moving on...");
+            if(opts == null){
+                log(0, "No opt args, moving on...");
+                return 0;
+            }
             if(opts != null){
                 string[] opts_arr = opts.Split(" ");
                 foreach (var arg in opts_arr)
                 {
-                    if(arg != "-l" && arg != "-s"){ log(2, "[ ERR ] Invalid opt args"); }
-                    if (arg == "-l"){ log(3, "[ OPT ARG ] LOOP OUTPUT GIF"); }
-                    if (arg == "-s"){ log(3, "[ OPT ARG ] SAVE OUTPUT WHEN FINISHED"); }
+                    if(arg != "-l" && arg != "-s"){ log(2, "[ ERR ] Invalid opt args"); return 0; }
+                    if (arg == "-l"){ log(3, "[ OPT ARG ] LOOP OUTPUT GIF"); return 1; }
+                    if (arg == "-s"){ log(3, "[ OPT ARG ] SAVE OUTPUT WHEN FINISHED"); return 2; }
                 }
             }
+            return 0;
         }
-        public static void render_frames(Image gif_img, int frame_count, int frame_rate){
-            
-            System.IO.Directory.CreateDirectory("frames");
-            log(0, $"[ OK ] Creating directory...");
+        public static void render_frames(Image gif_img, int frame_count, int args){
             Console.CursorVisible = false;
+            if(args == 1){
+                // Very, very messy. High CPU usage
+                // Infinite loop
                 for (int i = 0; i < frame_count; i++)
                 {
+                    if( i == frame_count - 1){
+                        i = 0;
+                        Console.Clear();
+                    }
                     gif_img.SelectActiveFrame(FrameDimension.Time, i);
                     Console.CursorLeft = 0;
                     Console.CursorTop = 0;
                     Bitmap frame_bmp = new Bitmap(gif_img);
                     ConsoleWriteImage(frame_bmp);
-                    // Thread.Sleep(500);
                 }
+            }
+            for (int i = 0; i < frame_count; i++)
+            {
+                gif_img.SelectActiveFrame(FrameDimension.Time, i);
+                Console.CursorLeft = 0;
+                Console.CursorTop = 0;
+                Bitmap frame_bmp = new Bitmap(gif_img);
+                ConsoleWriteImage(frame_bmp);
+            }
             // Cleanup
             Console.Clear();
             Console.CursorVisible = true;
