@@ -63,7 +63,7 @@ namespace ConsoleApp
                     Console.Clear();
 
                     // Testing
-                    generate_frames(gif_image, frame_count, 30);
+                    generate_frames(gif_image, frame_count, framerate);
                     log(0, "[ OK ] Saved frames");
                 }
                 else {
@@ -77,17 +77,21 @@ namespace ConsoleApp
         public static void generate_frames(Image gif_img, int frame_count, int frame_rate){
             System.IO.Directory.CreateDirectory("frames");
             log(0, $"[ OK ] Creating directory...");
+            Console.CursorVisible = false;
             for (int i = 0; i < frame_count; i++)
             {
                 // Set active frame
                 gif_img.SelectActiveFrame(FrameDimension.Time, i);
                 // Draw frame
+                Console.CursorLeft = 0;
+                Console.CursorTop = 0;
                 ConsoleWriteImage(new Bitmap(gif_img));
                 // Wait until rendered
-                Thread.Sleep((2000 / frame_rate));
+                Thread.Sleep((400 / frame_rate));
                 // Cleanup
-                Console.Clear();
+                // Console.Clear();
             }
+            Console.Clear();
         }
 
         static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
