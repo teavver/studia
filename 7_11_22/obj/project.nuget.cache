@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6vjaH1IZ29BqPWesScKmWRk+x0bpxc36UJhVRSHC3SZ/W2y+LpmDHl14abkjespR9bdtXLlV+dpxBGKFgzreIw==",
+  "success": true,
+  "projectFilePath": "/home/kafka/Dev/studia/7_11_22/7_11_22.csproj",
+  "expectedPackageFiles": [
+    "/home/kafka/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
