@@ -84,6 +84,8 @@ namespace ConsoleApp
         public static void frame_to_ASCII(Image img, int quality){
             // https://codingvision.net/c-ascii-art-tutorial
 
+            // https://stackoverflow.com/questions/33538527/display-a-image-in-a-console-application
+
             Bitmap bmp = new Bitmap(img, quality, quality);
         }
         public static void log(int log_type, string input) {
