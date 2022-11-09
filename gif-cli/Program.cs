@@ -93,7 +93,6 @@ namespace ConsoleApp
                 else { render_frames(gif_image, frame_count, 0); } //render normal
             }
         }
-x 
         public static void list_gif_files(){
 
             Console.Clear();
