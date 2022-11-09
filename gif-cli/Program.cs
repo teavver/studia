@@ -49,6 +49,7 @@ namespace ConsoleApp
             if(!user_input.Any(x => Char.IsWhiteSpace(x))){
                 eval_gif(user_input); // user_input === selected_gif here
             }
+            
             if(user_input.Any(x => Char.IsWhiteSpace(x))){
                 int first_space_user_input = user_input.IndexOf(" "); // i.e "drake.gif -l"
                 string?  opt_args = user_input.Substring(first_space_user_input + 1); // i.e "-l"
@@ -92,7 +93,7 @@ namespace ConsoleApp
                 else { render_frames(gif_image, frame_count, 0); } //render normal
             }
         }
-
+x 
         public static void list_gif_files(){
 
             Console.Clear();
