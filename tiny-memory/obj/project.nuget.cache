@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "0CGRrYMlLDbmE66nhGi4Qp2vnA7Pz6AbyvjfNvWPriNtY/pnCJOC2aG2iMlsAIJXBxek3pAMOOQ1rtGyc7oIxw==",
+  "success": true,
+  "projectFilePath": "/home/teaver/Dev/studia/tiny-memory/tiny-memory.csproj",
+  "expectedPackageFiles": [
+    "/home/teaver/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
