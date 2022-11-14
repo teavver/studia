@@ -44,6 +44,7 @@ namespace ConsoleApp
                 select_gif_file(false);
                 return;
             }
+
             // Check if user input is file + args or just file.gif and continue
             if(!user_input.Any(x => Char.IsWhiteSpace(x))){
                 eval_gif_OS(user_input,OS); // user_input === selected_gif here
@@ -63,13 +64,10 @@ namespace ConsoleApp
             if(OS == "WINDOWS"){
 
                 // Check if file exists in directory (Windows)
-
                 string default_path = Directory.GetCurrentDirectory();
                 string main_folder_path = Path.GetFullPath(Path.Combine(default_path, @"..\..\..\"));
                 string selected_gif_file_win = Path.GetFullPath(Path.Combine(main_folder_path, $@"{selected_gif}"));
                 // testing
-                // Console.WriteLine(selected_gif_file_win);
-                // Console.WriteLine(File.Exists(selected_gif_file_win));
                 bool file_exists = File.Exists(selected_gif_file_win);
                 eval_gif_file(file_exists, selected_gif_file_win, args);
             }
@@ -83,18 +81,12 @@ namespace ConsoleApp
 
         public static void eval_gif_file(bool exists, string selected_gif, int args = 0)
         {
-            // Console.WriteLine(OS);
-            // Console.WriteLine(exists);
-            // Console.WriteLine(selected_gif);
-            // Console.WriteLine(args);
-
             if (!exists)
             {
                 Console.Clear(); log(2, $"[ ERR ] Can't find file \"{selected_gif}\". try again");
                 select_gif_file(false);
                 return;
             }
-
             if (exists)
             {
                 log(0, $"[ OK ] Selected file: {selected_gif}");
@@ -126,8 +118,16 @@ namespace ConsoleApp
         public static void list_gif_files(){
 
             Console.Clear();
-            var curr_dir = Directory.GetCurrentDirectory();
+            string linux_gifs_path = Directory.GetCurrentDirectory();
+            string windows_gifs_path = Path.GetFullPath(Path.Combine(linux_gifs_path, @"..\..\..\*.gif"));
+            var curr_dir = (OS == "LINUX") ? linux_gifs_path : windows_gifs_path;
             var gif_files = Directory.GetFiles(curr_dir, "*.gif");
+
+            Console.WriteLine("TESTING (126");
+            Console.WriteLine(curr_dir);
+            Console.WriteLine(windows_gifs_path);
+            Console.WriteLine(linux_gifs_path);
+            
             foreach (var gif_file in gif_files)
             {
                 int pos = gif_file.LastIndexOf("/") + 1;
@@ -147,7 +147,7 @@ namespace ConsoleApp
             Console.WriteLine();
             log(3, "Optional arguments available: ");
             log(3, "[ file.gif -l ] Loop output gif");
-            log(3, "[ file.gif -s ] Save output gif when finished");
+            log(3, "[ file.gif -s {number} ] Make gif and define its scale/quality");
             Console.WriteLine();
         }
 
@@ -163,22 +163,20 @@ namespace ConsoleApp
                 {
                     if(arg != "-l" && arg != "-s"){ log(2, "[ ERR ] Invalid opt args"); return 0; }
                     if (arg == "-l"){ log(3, "[ OPT ARG ] LOOP OUTPUT GIF"); return 1; }
-                    if (arg == "-s"){ log(3, "[ OPT ARG ] SAVE OUTPUT WHEN FINISHED"); return 2; }
+                    if (arg == "-s"){ log(3, "[ OPT ARG ] GIF WITH SCALE/QUALITY"); return 2; }
                 }
             }
             return 0;
         }
         public static void render_frames(Image gif_img, int frame_count, int args){
+
             Console.CursorVisible = false;
+
+            // Loop case (High CPU usage linux)
             if(args == 1){
-                // Very, very messy. High CPU usage
-                // Infinite loop
                 for (int i = 0; i < frame_count; i++)
                 {
-                    if( i == frame_count - 1){
-                        i = 0;
-                        Console.Clear();
-                    }
+                    if( i == frame_count - 1){ i = 0; Console.Clear(); } // Restart on last frame
                     gif_img.SelectActiveFrame(FrameDimension.Time, i);
                     Console.CursorLeft = 0;
                     Console.CursorTop = 0;
@@ -186,6 +184,8 @@ namespace ConsoleApp
                     ConsoleWriteImage(frame_bmp);
                 }
             }
+
+            // Normal case
             for (int i = 0; i < frame_count; i++)
             {
                 gif_img.SelectActiveFrame(FrameDimension.Time, i);
@@ -194,6 +194,7 @@ namespace ConsoleApp
                 Bitmap frame_bmp = new Bitmap(gif_img);
                 ConsoleWriteImage(frame_bmp);
             }
+
             // Cleanup
             Console.Clear();
             Console.CursorVisible = true;
