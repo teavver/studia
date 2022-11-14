@@ -12,11 +12,26 @@
 }
 
 
+STRUCT gif_files string[]
+STRUCT gif_files_index string[] (5 files )
 
-// MENU DO APPKI
+Move gif_files_index inside gif_files
 
-// LISTA GIF (MAIN MENU) - NA DOLE INF o GIFIE 
+...
+drake.gif
+drake2.gif
+* drake3.gif
+drake4.gif
+drake5.gif
+...
 
-// WYBOR GIFA -> [ COFNIJ ] [ OK ]
 
-// WYBOR ARGSOW -> [ZAZNACZ JEDNO ] [ COFNIJ ] [ OK ]
+-----
+drake3.gif
+-----
+
+size: 423KB
+res: 430 x 240 px
+frame delay: 42
+etc
+

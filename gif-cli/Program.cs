@@ -16,9 +16,10 @@ namespace ConsoleApp
         }
 
         private static void gif_CLI(){
+            Console.Clear();
             // Check operating system before anything to ensure correct file paths
             check_OS();
-            select_gif_file(true);
+            // select_gif_file(true);
         }
 
         private static void select_gif_file(bool clear) {
@@ -267,7 +268,8 @@ namespace ConsoleApp
                 OS = "LINUX";
             }
         }
-        public static void log(int log_type, string input) {
+
+        public static void log(int log_type, string input, bool center = false) {
             // 0 -- default info log (cyan)
             // 1 -- warn log        (yellow)
             // 2 -- err log           (red)
@@ -280,7 +282,8 @@ namespace ConsoleApp
             if(log_type == 1) Console.ForegroundColor = ConsoleColor.Yellow;
             if(log_type == 2) Console.ForegroundColor = ConsoleColor.Red;
             if(log_type == 3) Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(input);
+            if(center == true) { Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input)); } 
+            if(!center){ Console.WriteLine(input); }
             Console.ResetColor();
             return;
         }
