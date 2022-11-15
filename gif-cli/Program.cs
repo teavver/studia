@@ -4,7 +4,8 @@ using System.IO;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
-using GUI;
+using Gui = GUI.Gui;
+using Tb = Toolbox.Tools;
 
 namespace GIF_CLI
 {
@@ -13,16 +14,15 @@ namespace GIF_CLI
         public static string OS = "";
         public static void Main(string[] args)
         {
-            GUI.Gui.Main();
-            Thread.Sleep(2500);
             gif_CLI();
         }
 
         private static void gif_CLI(){
-            // Console.Clear();
+            Console.Clear();
             // Check operating system before anything to ensure correct file paths
             check_OS();
-            // select_gif_file(true);
+            // Run
+            Gui.Main();
         }
 
         private static void select_gif_file(bool clear) {
