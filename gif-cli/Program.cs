@@ -14,11 +14,12 @@ namespace GIF_CLI
         public static void Main(string[] args)
         {
             GUI.Gui.Main();
-            // gif_CLI();
+            Thread.Sleep(2500);
+            gif_CLI();
         }
 
         private static void gif_CLI(){
-            Console.Clear();
+            // Console.Clear();
             // Check operating system before anything to ensure correct file paths
             check_OS();
             // select_gif_file(true);

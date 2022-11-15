@@ -5,6 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <NoWarn>CA1416,CS8604,CS8602</NoWarn>
     <StartupObject>GIF_CLI.Program</StartupObject>
   </PropertyGroup>
 
