@@ -4,15 +4,17 @@ using System.IO;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using GUI;
 
-namespace ConsoleApp
+namespace GIF_CLI
 {
     public class Program
     {
         public static string OS = "";
         public static void Main(string[] args)
         {
-            gif_CLI();
+            GUI.Gui.Main();
+            // gif_CLI();
         }
 
         private static void gif_CLI(){

@@ -1,3 +1,5 @@
+/*
+
 {
   "runtimeOptions": {
     "tfm": "net6.0",
@@ -10,12 +12,6 @@
      }
   }
 }
-
-
-STRUCT gif_files string[]
-STRUCT gif_files_index string[] (5 files )
-
-Move gif_files_index inside gif_files
 
 ...
 drake.gif
@@ -35,3 +31,4 @@ res: 430 x 240 px
 frame delay: 42
 etc
 
+*/

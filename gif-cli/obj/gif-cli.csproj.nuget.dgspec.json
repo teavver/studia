@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj": {}
+    "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj": {}
   },
   "projects": {
-    "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj": {
+    "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj",
+        "projectUniqueName": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
         "projectName": "gif-cli",
-        "projectPath": "/home/kafka/Dev/studia/gif-cli/gif-cli.csproj",
-        "packagesPath": "/home/kafka/.nuget/packages/",
-        "outputPath": "/home/kafka/Dev/studia/gif-cli/obj/",
+        "projectPath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
+        "packagesPath": "/home/teaver/.nuget/packages/",
+        "outputPath": "/home/teaver/Dev/studia/gif-cli/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/kafka/.nuget/NuGet/NuGet.Config"
+          "/home/teaver/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -49,14 +49,19 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.10, 6.0.10]"
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[6.0.11, 6.0.11]"
             }
           ],
           "frameworkReferences": {
@@ -64,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.110/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
