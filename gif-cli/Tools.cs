@@ -23,5 +23,12 @@ namespace Toolbox
             Console.ResetColor();
             return;
         }
+
+        public static void ctrl_c_watcher(){
+            Console.CancelKeyPress += delegate {
+            Console.Clear();
+            Console.CursorVisible = true;
+            };
+        }
     }
 }

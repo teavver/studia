@@ -1,7 +1,9 @@
-using System.Collections.Generic;
 using System;
-using System.Linq;
-using System.Threading;
+using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 using Tb = Toolbox.Tools;
 
 namespace GUI
@@ -11,8 +13,14 @@ namespace GUI
         // Get OS from the main file
         public static string OS = GIF_CLI.Program.OS;
         
+        public static int list_display_range = 3;
+        
         public static List<string> gif_list = new List<string>();
         public static void Main() {
+
+            // Clean up after my spastic ctrl C's
+            Tb.ctrl_c_watcher();
+
             // Check for gif files in directory
             check_for_gif_files();
 
@@ -48,7 +56,8 @@ namespace GUI
                 // Handle different action for the option
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
-                    Console.WriteLine($"ENTER ONCLICK");
+                    // display_gif_details(gif_list[index]);
+                    Console.WriteLine("OK ENTER");
                     index = 0;
                 }
             }
@@ -87,7 +96,31 @@ namespace GUI
             WriteMenu(gif_list, gif_list.First());
         }
 
+        static void display_gif_details(string selected_gif){
 
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Tb.log(4, "----", true);
+            Tb.log(4, $"{selected_gif}", true);
+            // Get gif information -- size in byes, width, height, frame count, frame delay
+            FileInfo file = new FileInfo(selected_gif);
+            Bitmap img_bmp = new Bitmap(selected_gif);
+            Image gif_image = Image.FromFile(selected_gif);
+
+            long size_in_bytes = file.Length;
+            var image_height = img_bmp.Height;
+            var image_width = img_bmp.Width;
+            int frame_count = gif_image.GetFrameCount(FrameDimension.Time);
+            PropertyItem? frame_delay = gif_image.GetPropertyItem(0x5100);
+            int framerate = (frame_delay.Value[0] + frame_delay.Value[1] * 256) * 10;
+
+            Tb.log(4, $"Image size: {image_width.ToString()} x {image_height.ToString()} px", true);
+            Tb.log(4, $"Size (KiB): {(size_in_bytes/1024)}", true);
+            Tb.log(4, $"Frame delay: {framerate.ToString()}", true);
+            Tb.log(4, "----", true);
+        }
 
         static void WriteMenu(List<string> gif_list, string selectedOption)
         {
@@ -111,9 +144,8 @@ namespace GUI
                 {
                     Tb.log(3, option, true);
                 }
-
-                // Tb.log(3, option, true);
             }
+            display_gif_details(selectedOption);
         }
     }
 }
