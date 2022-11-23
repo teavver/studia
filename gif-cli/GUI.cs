@@ -123,9 +123,14 @@ namespace GUI
 
             Tb.log(4, "[ GIF-CLI ] Select your gif file", true);
             Console.WriteLine();
+
     
             foreach (string option in gif_list)
             {
+            int index = gif_list.IndexOf(option);
+                if(option != selectedOption && (option == gif_list[0] || option == gif_list[4])){
+                    Tb.log(3, "...", true);
+                }
                 if (option == selectedOption)
                 {
                     Tb.log(3, $"* {option} *", true);
