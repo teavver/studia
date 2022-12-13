@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj": {}
+    "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\gif-cli.csproj": {}
   },
   "projects": {
-    "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj": {
+    "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\gif-cli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
+        "projectUniqueName": "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\gif-cli.csproj",
         "projectName": "gif-cli",
-        "projectPath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
-        "packagesPath": "C:\\Users\\teaver\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\obj\\",
+        "projectPath": "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\gif-cli.csproj",
+        "packagesPath": "C:\\Users\\jerzy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\teaver\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jerzy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

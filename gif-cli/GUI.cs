@@ -15,8 +15,12 @@ namespace GUI
         public static string OS = GIF_CLI.Program.OS;
 
         public static List<string> gif_list = new List<string>();
-        // public static List<string> gif_list_visible = new List<string>();
-        public static int range = 3;
+
+        // Pages stufffff
+        public static int sel_gif_index = 0;
+        public static int current_page = 1;
+        public static int num_of_gif_files_in_dir = 0;
+        public static int num_of_pages = 0; // Is set once files r checked
 
         // GUI Main
         public static void Main(bool restart = false) {
@@ -27,12 +31,9 @@ namespace GUI
             // Check for gif files in directory
             check_for_gif_files();
 
-            // Set the default index of the selected item to be the first
-            int index = 0;
-
             // Write the menu out
             display_ascii_title();
-            write_menu(gif_list, gif_list[index]);
+            display_menu(gif_list, gif_list[sel_gif_index]);
 
             // Store key info in here
             ConsoleKeyInfo keyinfo;
@@ -45,52 +46,66 @@ namespace GUI
                 }
                 if (keyinfo.Key == ConsoleKey.DownArrow)
                 {
-                    if (index + 1 < gif_list.Count)
+                    if (sel_gif_index + 1 < gif_list.Count)
                     {
-                        index++;
-                        write_menu(gif_list, gif_list[index]);
+                        sel_gif_index++;
+                        display_menu(gif_list, gif_list[sel_gif_index]);
                     }
                 }
                 if (keyinfo.Key == ConsoleKey.UpArrow)
                 {
-                    if (index - 1 >= 0)
+                    if (sel_gif_index - 1 >= 0)
                     {
-                        index--;
-                        write_menu(gif_list, gif_list[index]);
+                        sel_gif_index--;
+                        display_menu(gif_list, gif_list[sel_gif_index]);
                     }
                 }
                 // Handle different action for the option
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
-                    Gif_Cli.eval_gif_file(gif_list[index]);
+                    Gif_Cli.eval_gif_file(gif_list[sel_gif_index]);
                 }
             }
             while (keyinfo.Key != ConsoleKey.Escape);
             Console.ReadKey();
         }
+
+        public static void display_gui_page()
+        {
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Tb.log(0, $"Page {current_page}/{num_of_pages}", true);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
+        }
+
         public static void check_for_gif_files(){
+
             string linux_gifs_path = Directory.GetCurrentDirectory();
             string windows_gifs_path = Path.GetFullPath(Path.Combine(linux_gifs_path, @"..\..\.."));
-            Console.WriteLine(windows_gifs_path);
             var curr_dir = (OS == "LINUX") ? linux_gifs_path : windows_gifs_path;
             var local_gif_files  = Directory.GetFiles(curr_dir, "*.gif");
 
-            Console.WriteLine(local_gif_files);
             // Add files to Array
             foreach (var gif_file in local_gif_files)
             {
                 // Log only "file.gif" instead of "/home/.../.../file.gif"
                 Console.WriteLine(gif_file);
-                string gif_file_short = (OS == "WINDOWS") ? gif_file.Split(@"\").Last() : "LINUX LOL";
+                string gif_file_short = (OS == "WINDOWS") ? gif_file.Split(@"\").Last() : "LINUX LOL"; // Will fix this later
+                num_of_gif_files_in_dir++;
+                
+                // Debugging
+                // Console.WriteLine(gif_file_short);
 
-                Console.WriteLine(gif_file_short);
                 // Check if file exists in list and if not, add it
                 if(!gif_list.Contains(gif_file_short)){
                    gif_list.Add(gif_file_short);
                 }
             }
-            // gif_list.ForEach(Console.WriteLine);
+            num_of_pages = (num_of_gif_files_in_dir / 3);
+            Console.WriteLine(num_of_pages);
+            Console.ReadKey();
             Console.WriteLine();
         }
         static void display_gif_details(string selected_gif){
@@ -98,10 +113,14 @@ namespace GUI
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine();
             
             Tb.log(4, "----", true);
             Tb.log(4, $"{selected_gif}", true);
+            string selected_gif_no_file_ext = selected_gif.Substring(0, selected_gif.Length - 4);
+            Console.WriteLine(selected_gif_no_file_ext);
+            Console.WriteLine(File.Exists(selected_gif_no_file_ext));
+            Console.ReadKey();
+           
 
             // Get gif information -- size in byes, width, height, frame count, frame delay
             FileInfo file = new FileInfo(selected_gif);
@@ -111,7 +130,6 @@ namespace GUI
             long size_in_bytes = file.Length;
             var image_height = img_bmp.Height;
             var image_width = img_bmp.Width;
-            // int frame_count = gif_image.GetFrameCount(FrameDimension.Time);
             PropertyItem? frame_delay = gif_image.GetPropertyItem(0x5100); // Get exact frame delay
             int framerate = (frame_delay.Value[0] + frame_delay.Value[1] * 256) * 10;
 
@@ -121,24 +139,28 @@ namespace GUI
             Tb.log(4, "----", true);
         }
 
-        static void write_menu(List<string> gif_list, string selectedOption)
+        static void display_menu(List<string> gif_list, string selectedOption)
         {
             // Cleanup + disable cursor while in Menu
             Console.Clear();
             Console.CursorVisible = false;
-            Console.WriteLine();
-            Console.WriteLine();
 
+            Console.WriteLine();
             Tb.log(4, "[ GIF-CLI ] Select your gif file", true);
             Console.WriteLine();
 
-            // Menu
+            // List available files in directory
             foreach (string option in gif_list)
             {
                 int index = gif_list.IndexOf(option);
                 Console.WriteLine(option);
             }
-            // display_gif_details(selectedOption);
+            
+            // Display details about selected file
+            display_gif_details(selectedOption);
+
+            // Display page info
+            display_gui_page();
         }
         
         static void display_ascii_title()

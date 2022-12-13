@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "saBDXbMwi5fJyTG/LfWrV2qJFloOEwwTSpi2FPAtDLj4Owhd6waUE5/fQbiSodqvSblYLevCuOoIsrqmacOLFw==",
+  "dgSpecHash": "x9aU+OZP/8lDyeaYEc3414ZOJtwUKRRD9PpGYEmS3dn/nTqG4jbmde6TPD6jfKpMNkVvgP1Yh+pET2s+Qq/SMQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
+  "projectFilePath": "C:\\Users\\jerzy\\Source\\Repos\\studia\\gif-cli\\gif-cli.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\teaver\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\teaver\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+    "C:\\Users\\jerzy\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\jerzy\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
