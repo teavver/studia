@@ -1,13 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "vTGRMXw9djKbrISoyVWFSbOYOKBhVEQkI9QDtF6acmh/xeweO5RItSrtPbVj2Wi6HBbYEEBm2nGWt6hmi6946g==",
+  "dgSpecHash": "saBDXbMwi5fJyTG/LfWrV2qJFloOEwwTSpi2FPAtDLj4Owhd6waUE5/fQbiSodqvSblYLevCuOoIsrqmacOLFw==",
   "success": true,
-  "projectFilePath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
+  "projectFilePath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
   "expectedPackageFiles": [
-    "/home/teaver/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "/home/teaver/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
-    "/home/teaver/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.11/microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512",
-    "/home/teaver/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.11/microsoft.netcore.app.host.linux-x64.6.0.11.nupkg.sha512"
+    "C:\\Users\\teaver\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\teaver\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

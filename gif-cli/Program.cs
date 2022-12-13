@@ -27,11 +27,11 @@ namespace GIF_CLI
             // Display menu
             Gui.Main();
         }
-        public static void eval_gif_file(string selected_gif, int args = 0)
+        public static void eval_gif_file(string selected_gif)
         {
                 Tb.log(0, $"[ OK ] Selected file: {selected_gif}");
 
-                // Get gif information -- size in byes, width, height, frame count, frame delay
+                // Get gif file information -- size in byes, width, height, frame count, frame delay
                 FileInfo file = new FileInfo(selected_gif);
                 Bitmap img_bmp = new Bitmap(selected_gif);
                 Image gif_image = Image.FromFile(selected_gif);
@@ -43,47 +43,19 @@ namespace GIF_CLI
                 PropertyItem? frame_delay = gif_image.GetPropertyItem(0x5100);
                 int framerate = (frame_delay.Value[0] + frame_delay.Value[1] * 256) * 10;
 
-                Tb.log(0, $"gif frame delay: {framerate.ToString()}");
-                Tb.log(0, $"size in bytes: {size_in_bytes.ToString()}");
-                Tb.log(0, $"image size: {image_width.ToString()} x {image_height.ToString()} px");
+                Tb.log(0, $"gif frame delay: {framerate}");
+                Tb.log(0, $"size in bytes: {size_in_bytes}");
+                Tb.log(0, $"image size: {image_width} x {image_height} px");
                 Tb.log(0, "[ OK ]");
                 Thread.Sleep(250);
                 Console.Clear();
 
-                // Check for opt args before rendering
-                if (args == 1) { render_frames(gif_image, frame_count, args); } // render looped
-                else { render_frames(gif_image, frame_count, 0); } //render normal
+                render_frames(gif_image, frame_count);
         }
-        // public static void display_help(){
-
-        //     // List all available commands
-        //     Console.Clear();
-        //     Tb.log(3, "[ HELP ] Options available: ");
-        //     Console.WriteLine();
-        //     Tb.log(3, "Commands available: ");
-        //     Tb.log(3, "[ -ls ] Display all selectable .gif files in current directory");
-        //     Console.WriteLine();
-        //     Tb.log(3, "Optional arguments available: ");
-        //     Tb.log(3, "[ file.gif -l ] Loop output gif");
-        //     Tb.log(3, "[ file.gif -s {number} ] Make gif and define its scale/quality");
-        //     Console.WriteLine();
-        // }
-        public static void render_frames(Image gif_img, int frame_count, int args){
+        
+        public static void render_frames(Image gif_img, int frame_count){
 
             Console.CursorVisible = false;
-
-            // Loop case (High CPU usage linux)
-            if(args == 1){
-                for (int i = 0; i < frame_count; i++)
-                {
-                    if( i == frame_count - 1){ i = 0; Console.Clear(); } // Restart on last frame
-                    gif_img.SelectActiveFrame(FrameDimension.Time, i);
-                    Console.CursorLeft = 0;
-                    Console.CursorTop = 0;
-                    Bitmap frame_bmp = new Bitmap(gif_img);
-                    ConsoleWriteImage(frame_bmp);
-                }
-            }
 
             // Normal case
             for (int i = 0; i < frame_count; i++)
@@ -141,7 +113,7 @@ namespace GIF_CLI
         }
         public static void ConsoleWriteImage(Bitmap source)
         {
-            int sMax = 34; // (SCALE, PIXEL RATIO IN CLI)
+            int sMax = 34; // (SCALE, PIXEL RATIO IN CLI) -- should the user specify it?
             decimal percent = Math.Min(decimal.Divide(sMax, source.Width), decimal.Divide(sMax, source.Height));
             Size dSize = new Size((int)(source.Width * percent), (int)(source.Height * percent));   
             Bitmap bmpMax = new Bitmap(source, dSize.Width * 2, dSize.Height);
