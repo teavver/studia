@@ -4,7 +4,7 @@ namespace Toolbox
 {
     public class Tools
     {
-        public static void log(int log_type, string input, bool center = false) {
+        public static void log(int log_type, string input, bool center = false, bool bgColor = false) {
             // 0 -- default info log (cyan)
             // 1 -- warn log        (yellow)
             // 2 -- err log           (red)
@@ -18,7 +18,18 @@ namespace Toolbox
             if(log_type == 2) Console.ForegroundColor = ConsoleColor.Red;
             if(log_type == 3) Console.ForegroundColor = ConsoleColor.Green;
             if(log_type == 4) Console.ForegroundColor = ConsoleColor.White;
-            if(center == true) { Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input)); } 
+            if(center == true) {
+                if(bgColor == true){
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input));
+                    Console.ResetColor();
+                    Console.CursorLeft = 0;
+                    Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - (input.Length / 2)) + "}", ""));
+                    return;
+                }
+                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input));
+                // Console.ResetColor();
+                } 
             if(!center){ Console.WriteLine(input); }
             Console.ResetColor();
             return;

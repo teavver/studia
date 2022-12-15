@@ -75,8 +75,8 @@ namespace GUI
         {
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Gray;
-            Tb.log(0, $"Page {current_page}/{num_of_pages}", true);
-            Console.BackgroundColor = ConsoleColor.Black;
+            Tb.log(0, $"Page {current_page}/{num_of_pages}", true, true);
+            // Console.ResetColor(); // Reset the colors to default ?
             Console.WriteLine();
         }
 
@@ -91,23 +91,23 @@ namespace GUI
             foreach (var gif_file in local_gif_files)
             {
                 // Log only "file.gif" instead of "/home/.../.../file.gif"
-                Console.WriteLine(gif_file);
-                string gif_file_short = (OS == "WINDOWS") ? gif_file.Split(@"\").Last() : "LINUX LOL"; // Will fix this later
+                string gif_file_short = (OS == "WINDOWS")
+                ? gif_file.Split(@"\").Last() // Windows path formatting
+                : gif_file.Split("/").Last(); // Unix
                 num_of_gif_files_in_dir++;
                 
-                // Debugging
-                // Console.WriteLine(gif_file_short);
-
-                // Check if file exists in list and if not, add it
+                // Check if file exists in list and if not - add it
                 if(!gif_list.Contains(gif_file_short)){
                    gif_list.Add(gif_file_short);
+                   Console.WriteLine(gif_file_short);
                 }
             }
+
+            // Assign number of pages based on available files
             num_of_pages = (num_of_gif_files_in_dir / 3);
-            Console.WriteLine(num_of_pages);
-            Console.ReadKey();
             Console.WriteLine();
         }
+
         static void display_gif_details(string selected_gif){
 
             Console.WriteLine();
@@ -116,11 +116,6 @@ namespace GUI
             
             Tb.log(4, "----", true);
             Tb.log(4, $"{selected_gif}", true);
-            string selected_gif_no_file_ext = selected_gif.Substring(0, selected_gif.Length - 4);
-            Console.WriteLine(selected_gif_no_file_ext);
-            Console.WriteLine(File.Exists(selected_gif_no_file_ext));
-            Console.ReadKey();
-           
 
             // Get gif information -- size in byes, width, height, frame count, frame delay
             FileInfo file = new FileInfo(selected_gif);
@@ -153,11 +148,11 @@ namespace GUI
             foreach (string option in gif_list)
             {
                 int index = gif_list.IndexOf(option);
-                Console.WriteLine(option);
+                Tb.log(4, $"{option}", true);
             }
             
             // Display details about selected file
-            display_gif_details(selectedOption);
+            // display_gif_details(selectedOption);
 
             // Display page info
             display_gui_page();
