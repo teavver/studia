@@ -21,10 +21,12 @@ namespace Toolbox
             if(center == true) {
                 if(bgColor == true){
                     Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input));
                     Console.ResetColor();
                     Console.CursorLeft = 0;
                     Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - (input.Length / 2)) + "}", ""));
+                    Console.WriteLine();
                     return;
                 }
                 Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (input.Length / 2)) + "}", input));

@@ -16,6 +16,9 @@ namespace GUI
 
         public static List<string> gif_list = new List<string>();
 
+        // Set a global directory for the files based on OS
+        public static string global_dir = "";
+
         // Pages stufffff
         public static int sel_gif_index = 0;
         public static int current_page = 1;
@@ -33,7 +36,7 @@ namespace GUI
 
             // Write the menu out
             display_ascii_title();
-            display_menu(gif_list, gif_list[sel_gif_index]);
+            display_menu(gif_list[sel_gif_index]);
 
             // Store key info in here
             ConsoleKeyInfo keyinfo;
@@ -49,7 +52,7 @@ namespace GUI
                     if (sel_gif_index + 1 < gif_list.Count)
                     {
                         sel_gif_index++;
-                        display_menu(gif_list, gif_list[sel_gif_index]);
+                        display_menu(gif_list[sel_gif_index]);
                     }
                 }
                 if (keyinfo.Key == ConsoleKey.UpArrow)
@@ -57,7 +60,7 @@ namespace GUI
                     if (sel_gif_index - 1 >= 0)
                     {
                         sel_gif_index--;
-                        display_menu(gif_list, gif_list[sel_gif_index]);
+                        display_menu(gif_list[sel_gif_index]);
                     }
                 }
                 // Handle different action for the option
@@ -84,8 +87,16 @@ namespace GUI
 
             string linux_gifs_path = Directory.GetCurrentDirectory();
             string windows_gifs_path = Path.GetFullPath(Path.Combine(linux_gifs_path, @"..\..\.."));
+
             var curr_dir = (OS == "LINUX") ? linux_gifs_path : windows_gifs_path;
-            var local_gif_files  = Directory.GetFiles(curr_dir, "*.gif");
+            // Assign the global directory
+            global_dir = curr_dir;
+            string[] local_gif_files  = Directory.GetFiles(curr_dir, "*.gif");
+
+            foreach (var item in local_gif_files)
+            {
+                Console.WriteLine(item);
+            }
 
             // Add files to Array
             foreach (var gif_file in local_gif_files)
@@ -110,18 +121,18 @@ namespace GUI
 
         static void display_gif_details(string selected_gif){
 
+            Directory.SetCurrentDirectory(global_dir);
+
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            
             Tb.log(4, "----", true);
             Tb.log(4, $"{selected_gif}", true);
-
-            // Get gif information -- size in byes, width, height, frame count, frame delay
+            
+            // Get gif information -- size in byes, width, height, frame count, frame 
             FileInfo file = new FileInfo(selected_gif);
             Bitmap img_bmp = new Bitmap(selected_gif);
             Image gif_image = Image.FromFile(selected_gif);
-
             long size_in_bytes = file.Length;
             var image_height = img_bmp.Height;
             var image_width = img_bmp.Width;
@@ -129,12 +140,12 @@ namespace GUI
             int framerate = (frame_delay.Value[0] + frame_delay.Value[1] * 256) * 10;
 
             Tb.log(4, $"Image size: {image_width} x {image_height} px", true);
-            Tb.log(4, $"Size (KiB): {(size_in_bytes/1024)}", true);
+            Tb.log(4, $"Size (KiB): {(size_in_bytes / 1024)}", true);
             Tb.log(4, $"Frame delay: {framerate}", true);
             Tb.log(4, "----", true);
         }
 
-        static void display_menu(List<string> gif_list, string selectedOption)
+        static void display_menu(string selectedOption)
         {
             // Cleanup + disable cursor while in Menu
             Console.Clear();
@@ -150,9 +161,10 @@ namespace GUI
                 int index = gif_list.IndexOf(option);
                 Tb.log(4, $"{option}", true);
             }
-            
+
             // Display details about selected file
-            // display_gif_details(selectedOption);
+            // Console.WriteLine(selectedOption);
+            display_gif_details(selectedOption);
 
             // Display page info
             display_gui_page();
