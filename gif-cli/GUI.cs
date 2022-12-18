@@ -19,11 +19,12 @@ namespace GUI
         // Set a global directory for the files based on OS
         public static string global_dir = "";
 
-        // Pages stufffff
-        public static int sel_gif_index = 0;
+        // Navigation menu stufffff
+        public static int num_of_pages = 0; // Is set (to (all files/files_per_page)) once files are checked
         public static int current_page = 1;
-        public static int num_of_gif_files_in_dir = 0;
-        public static int num_of_pages = 0; // Is set once files r checked
+        public static int files_per_page = 4;
+        public static int num_of_gif_files_in_dir = 0; // Number of gif files in (global) directory
+        public static int sel_gif_index = 0; // Index of currently selected gif file
 
         // GUI Main
         public static void Main(bool restart = false) {
@@ -32,24 +33,27 @@ namespace GUI
             if(!restart){ Tb.ctrl_c_watcher(); }
 
             // Check for gif files in directory
-            check_for_gif_files();
+            if (!restart) { check_for_gif_files(); }
 
             // Write the menu out
             display_ascii_title();
             display_menu(gif_list[sel_gif_index]);
 
-            // Store key info in here
+            // Check input
             ConsoleKeyInfo keyinfo;
             do
             {
                 keyinfo = Console.ReadKey();
-                // Handle each key input (down arrow will write the menu again with a different selected item)
+
+                // Escape (close the app)
                 if(keyinfo.Key == ConsoleKey.Escape){
                     Console.Clear(); Console.CursorVisible = true; Environment.Exit(0);
                 }
+
+                // Up -- Down (move between files)
                 if (keyinfo.Key == ConsoleKey.DownArrow)
                 {
-                    if (sel_gif_index + 1 < gif_list.Count)
+                    if (sel_gif_index + 1 < files_per_page)
                     {
                         sel_gif_index++;
                         display_menu(gif_list[sel_gif_index]);
@@ -63,7 +67,32 @@ namespace GUI
                         display_menu(gif_list[sel_gif_index]);
                     }
                 }
-                // Handle different action for the option
+
+                // Left -- Right (move between pages)
+                /* if (keyinfo.Key == ConsoleKey.LeftArrow)
+                {
+                    if("page index smthing  == 0 ")
+                    {
+                        move_to_page("first page");
+                    }
+                    else
+                    {
+                        move_to_page("prev page");
+                    }
+                }
+                if (keyinfo.Key == ConsoleKey.RightArrow)
+                {
+                    if("page index smthing == max")
+                    {
+                        move_to_page("first page");
+                    }
+                    else
+                    {
+                        move_to_page("next page");
+                    }
+                } */
+                
+                // Enter (Run currently selected gif)
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
@@ -81,6 +110,11 @@ namespace GUI
             Tb.log(0, $"Page {current_page}/{num_of_pages}", true, true);
             // Console.ResetColor(); // Reset the colors to default ?
             Console.WriteLine();
+        }
+
+        public static void move_to_page()
+        {
+            // Move to page x
         }
 
         public static void check_for_gif_files(){
@@ -131,7 +165,7 @@ namespace GUI
             
             // Get gif information -- size in byes, width, height, frame count, frame 
             FileInfo file = new FileInfo(selected_gif);
-            Bitmap img_bmp = new Bitmap(selected_gif);
+            Bitmap img_bmp = new Bitmap(selected_gif); // Throws err's
             Image gif_image = Image.FromFile(selected_gif);
             long size_in_bytes = file.Length;
             var image_height = img_bmp.Height;
@@ -155,11 +189,22 @@ namespace GUI
             Tb.log(4, "[ GIF-CLI ] Select your gif file", true);
             Console.WriteLine();
 
+            // Make some page stuff here
+
             // List available files in directory
             foreach (string option in gif_list)
             {
-                int index = gif_list.IndexOf(option);
-                Tb.log(4, $"{option}", true);
+                // int index = gif_list.IndexOf(option);
+                // Console.WriteLine(index);
+
+                if(option == selectedOption)
+                {
+                    Tb.log(4, $"**{option}**", true);
+                }
+                else
+                {
+                    Tb.log(4, $"{option}", true);
+                }
             }
 
             // Display details about selected file
