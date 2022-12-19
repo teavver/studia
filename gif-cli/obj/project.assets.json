@@ -131,24 +131,26 @@
     ]
   },
   "packageFolders": {
-    "/home/teaver/.nuget/packages/": {}
+    "C:\\Users\\teaver\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
+      "projectUniqueName": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
       "projectName": "gif-cli",
-      "projectPath": "/home/teaver/Dev/studia/gif-cli/gif-cli.csproj",
-      "packagesPath": "/home/teaver/.nuget/packages/",
-      "outputPath": "/home/teaver/Dev/studia/gif-cli/obj/",
+      "projectPath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\gif-cli.csproj",
+      "packagesPath": "C:\\Users\\teaver\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\teaver\\source\\repos\\teavver\\studia\\gif-cli\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/teaver/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\teaver\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -183,22 +185,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.linux-x64",
-            "version": "[6.0.11, 6.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

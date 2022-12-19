@@ -97,7 +97,7 @@ namespace GUI
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
-                    // Gif_Cli.eval_gif_file(gif_list[sel_gif_index]); -=-------------------------------------
+                    Gif_Cli.eval_gif_file(gif_list_current_page[sel_gif_index]);
                 }
             }
             while (keyinfo.Key != ConsoleKey.Escape);
@@ -174,7 +174,7 @@ namespace GUI
             Tb.log(4, "----", true);
         }
 
-        static void display_menu(string selectedOption, int page = 1)
+        static void display_menu(string selectedOption)
         {
             // Cleanup + disable cursor while in Menu
             Console.Clear();
@@ -198,7 +198,7 @@ namespace GUI
             }
 
             // Display details about selected file
-            // display_gif_details(selectedOption); ===================================================
+            display_gif_details(selectedOption);
 
             // Display page info
             display_gui_page_info();
