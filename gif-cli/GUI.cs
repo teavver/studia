@@ -14,14 +14,18 @@ namespace GUI
         // Get OS from the main file
         public static string OS = GIF_CLI.Program.OS;
 
+        // Global list for all the files available in the directory
         public static List<string> gif_list = new List<string>();
+
+        // List for a single page of files
+        public static List<string> gif_list_current_page = new List<string>();
 
         // Set a global directory for the files based on OS
         public static string global_dir = "";
 
         // Navigation menu stufffff
         public static int num_of_pages = 0; // Is set (to (all files/files_per_page)) once files are checked
-        public static int current_page = 1;
+        public static int page_number = 1;
         public static int files_per_page = 4;
         public static int num_of_gif_files_in_dir = 0; // Number of gif files in (global) directory
         public static int sel_gif_index = 0; // Index of currently selected gif file
@@ -29,15 +33,16 @@ namespace GUI
         // GUI Main
         public static void Main(bool restart = false) {
 
-            // Clean up after my spastic ctrl C's
+            // Clean up after my spastic ctrl C's and set starting list to page 1
             if(!restart){ Tb.ctrl_c_watcher(); }
 
             // Check for gif files in directory
-            if (!restart) { check_for_gif_files(); }
+            if (!restart) { check_for_gif_files(); update_local_gif_list(page_number); }
 
             // Write the menu out
             display_ascii_title();
-            display_menu(gif_list[sel_gif_index]);
+            Console.CursorVisible = true;
+            display_menu(gif_list_current_page[sel_gif_index]);
 
             // Check input
             ConsoleKeyInfo keyinfo;
@@ -53,10 +58,10 @@ namespace GUI
                 // Up -- Down (move between files)
                 if (keyinfo.Key == ConsoleKey.DownArrow)
                 {
-                    if (sel_gif_index + 1 < files_per_page)
+                    if (sel_gif_index < (gif_list_current_page.Count() -1))
                     {
                         sel_gif_index++;
-                        display_menu(gif_list[sel_gif_index]);
+                        display_menu(gif_list_current_page[sel_gif_index]);
                     }
                 }
                 if (keyinfo.Key == ConsoleKey.UpArrow)
@@ -64,57 +69,47 @@ namespace GUI
                     if (sel_gif_index - 1 >= 0)
                     {
                         sel_gif_index--;
-                        display_menu(gif_list[sel_gif_index]);
+                        display_menu(gif_list_current_page[sel_gif_index]);
                     }
                 }
 
                 // Left -- Right (move between pages)
-                /* if (keyinfo.Key == ConsoleKey.LeftArrow)
+                if (keyinfo.Key == ConsoleKey.LeftArrow)
                 {
-                    if("page index smthing  == 0 ")
-                    {
-                        move_to_page("first page");
-                    }
-                    else
-                    {
-                        move_to_page("prev page");
+                    if(page_number == 1){} // DO nothing
+                    else {
+                        page_number--;
+                        update_local_gif_list(page_number);
+                        display_menu(gif_list_current_page[sel_gif_index]);
                     }
                 }
                 if (keyinfo.Key == ConsoleKey.RightArrow)
                 {
-                    if("page index smthing == max")
-                    {
-                        move_to_page("first page");
+                    if(page_number == num_of_pages){} // Already max page dummy
+                    else {
+                        page_number++;
+                        update_local_gif_list(page_number);
+                        display_menu(gif_list_current_page[sel_gif_index]);
                     }
-                    else
-                    {
-                        move_to_page("next page");
-                    }
-                } */
+                }
                 
                 // Enter (Run currently selected gif)
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
-                    Gif_Cli.eval_gif_file(gif_list[sel_gif_index]);
+                    // Gif_Cli.eval_gif_file(gif_list[sel_gif_index]); -=-------------------------------------
                 }
             }
             while (keyinfo.Key != ConsoleKey.Escape);
             Console.ReadKey();
         }
 
-        public static void display_gui_page()
+        public static void display_gui_page_info()
         {
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Gray;
-            Tb.log(0, $"Page {current_page}/{num_of_pages}", true, true);
-            // Console.ResetColor(); // Reset the colors to default ?
+            Tb.log(0, $"Page {page_number}/{num_of_pages}", true, true);
             Console.WriteLine();
-        }
-
-        public static void move_to_page()
-        {
-            // Move to page x
         }
 
         public static void check_for_gif_files(){
@@ -179,7 +174,7 @@ namespace GUI
             Tb.log(4, "----", true);
         }
 
-        static void display_menu(string selectedOption)
+        static void display_menu(string selectedOption, int page = 1)
         {
             // Cleanup + disable cursor while in Menu
             Console.Clear();
@@ -189,17 +184,12 @@ namespace GUI
             Tb.log(4, "[ GIF-CLI ] Select your gif file", true);
             Console.WriteLine();
 
-            // Make some page stuff here
-
             // List available files in directory
-            foreach (string option in gif_list)
+            foreach (string option in gif_list_current_page)
             {
-                // int index = gif_list.IndexOf(option);
-                // Console.WriteLine(index);
-
                 if(option == selectedOption)
                 {
-                    Tb.log(4, $"**{option}**", true);
+                    Tb.log(4, $"** {option} **", true);
                 }
                 else
                 {
@@ -208,16 +198,22 @@ namespace GUI
             }
 
             // Display details about selected file
-            // Console.WriteLine(selectedOption);
-            display_gif_details(selectedOption);
+            // display_gif_details(selectedOption); ===================================================
 
             // Display page info
-            display_gui_page();
+            display_gui_page_info();
+        }
+
+        static void update_local_gif_list(int page){
+            sel_gif_index = 0;
+            var temp_list = gif_list.Skip((page - 1) * files_per_page).Take(files_per_page);
+            gif_list_current_page = temp_list.ToList();
         }
         
         static void display_ascii_title()
         {
             Console.Title = "Gif Cli";
+            Console.CursorVisible = false;
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine();
